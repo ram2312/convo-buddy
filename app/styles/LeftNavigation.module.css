@@ -31,7 +31,7 @@
     align-items: center;
     padding: 0px 20px;
     font-family: 'Actor', sans-serif;
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 400;
     color: #555758;
     text-decoration: none;
@@ -55,7 +55,7 @@
     background: none;
     border: none;
     font-family: 'Actor', sans-serif;
-    font-size: 14px;
+    font-size: 20px;
     color: #ff5f5f;
     cursor: pointer;
     transition: color 0.2s ease;

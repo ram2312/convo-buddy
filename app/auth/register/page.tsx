@@ -27,9 +27,9 @@ export default function Register() {
 
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("userEmail", data.email);  // Save email to localStorage
+        localStorage.setItem("userEmail", data.email); // Save email to localStorage
         alert("Registration successful! Redirecting to profile.");
-        router.push(data.redirectTo);  // Redirect to profile page
+        router.push(data.redirectTo); // Redirect to profile page
       } else {
         const data = await response.json();
         alert(data.error);
@@ -42,8 +42,11 @@ export default function Register() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.logoContainer}>
+        <img src="../images/logo.png" alt="Convo Buddy Logo" className={styles.logo} /> {/* Adjust this path */}
+      </div>           
       <div className={styles.card}>
-        <h1 className={styles.heading}>Create Account</h1>
+        <h1 className={styles.heading}>Welcome to ConvoBuddy</h1>
         <p className={styles.subHeading}>Sign up to start your journey</p>
 
         <form onSubmit={handleSubmit} className={styles.form}>

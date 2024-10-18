@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import styles from "../styles/Profile.module.css"; // Importing the CSS module
 
 export default function Profile() {
   const router = useRouter();
@@ -54,53 +55,43 @@ export default function Profile() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100">
-      <div className="bg-white p-10 rounded-lg shadow-lg max-w-4xl w-full">
-        <div className="flex items-center space-x-4 mb-8">
-          <img
-            src="/avatar.png" // Replace with actual avatar image path
-            alt="Avatar"
-            className="w-20 h-20 rounded-full"
-          />
-          <div>
-            <h2 className="text-2xl font-bold">Alexa Rawles</h2>
-            <p className="text-gray-500">{email}</p>
-          </div>
-          <button className="ml-auto bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-            Edit
-          </button>
-        </div>
+    <div className={styles.container}>
+      {/* Logo on the top-left */}
+      <div className={styles.logoContainer}>
+        <img src="../images/logo.png" alt="Convo Buddy Logo" className={styles.logo} />
+      </div>
 
-        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-8">
-          <div>
-            <label className="block mb-1">Full Name</label>
+      <div className={styles.card}>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Full Name</label>
             <input
               type="text"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none"
+              className={styles.input}
               placeholder="Your Full Name"
               required
             />
           </div>
 
-          <div>
-            <label className="block mb-1">Nick Name</label>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Nick Name</label>
             <input
               type="text"
               value={nickName}
               onChange={(e) => setNickName(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none"
+              className={styles.input}
               placeholder="Your First Name"
             />
           </div>
 
-          <div>
-            <label className="block mb-1">Gender</label>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Gender</label>
             <select
               value={gender}
               onChange={(e) => setGender(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md"
+              className={styles.input}
             >
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -108,12 +99,12 @@ export default function Profile() {
             </select>
           </div>
 
-          <div>
-            <label className="block mb-1">Role (Parent/Teacher)</label>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Role (Parent/Teacher)</label>
             <select
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md"
+              className={styles.input}
             >
               <option value="Parent">Parent</option>
               <option value="Teacher">Teacher</option>
@@ -121,23 +112,19 @@ export default function Profile() {
             </select>
           </div>
 
-          <div>
-            <label className="block mb-1">Site Language</label>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Site Language</label>
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md"
+              className={styles.input}
             >
               <option value="English">English</option>
               <option value="Spanish">Spanish</option>
-  
             </select>
           </div>
 
-          <button
-            type="submit"
-            className="col-span-2 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
-          >
+          <button type="submit" className={styles.saveButton}>
             Save Profile
           </button>
         </form>

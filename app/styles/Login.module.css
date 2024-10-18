@@ -16,7 +16,7 @@
 }
 
 .logo {
-  width: 5rem;
+  width: 10rem;
   margin: 0 auto 1rem auto;
 }
 
@@ -52,6 +52,8 @@
   border: 1px solid rgba(0, 0, 0, 0.25);
   margin-bottom: 1rem;
   font-family: Poppins, sans-serif;
+  color: #636364; /* Set input text color */
+
 }
 
 .options {
@@ -86,6 +88,7 @@
   font-weight: 600;
   transition: background 0.3s;
   box-shadow: 0px 4px 10px 0px rgba(233, 68, 75, 0.25);
+  margin-bottom: 6px;
 }
 
 .signInButton:hover {
