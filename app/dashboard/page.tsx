@@ -33,7 +33,7 @@ export default function Dashboard() {
             </h1>
             <p
               className="text-center mb-6"
-              style={{ color: '#3C3C3C', fontFamily: 'Inter, sans-serif', fontSize: '24px', fontWeight: '600', lineHeight: 'normal' }}
+              style={{ color: '#131313', fontFamily: 'Inter, sans-serif', fontSize: '24px', fontWeight: '400', lineHeight: 'normal' }}
             >
               Start by selecting a scenario to practice your skills, or jump into a conversation.
               You can track your status, and your progress will be displayed once you’ve started
@@ -59,10 +59,10 @@ export default function Dashboard() {
             </div>
 
             {/* Progress Message */}
-            <div className="bg-white p-8 shadow-md rounded-lg">
+            <div className="bg-white p-8 ">
               <p
                 className="text-center"
-                style={{ color: '#3C3C3C', fontFamily: 'Inter, sans-serif', fontSize: '24px', fontWeight: '600', lineHeight: 'normal' }}
+                style={{ color: '#131313', fontFamily: 'Inter, sans-serif', fontSize: '24px', fontWeight: '400', lineHeight: 'normal' }}
               >
                 Your progress will be displayed here once you’ve started working on at least one scenario.
               </p>
