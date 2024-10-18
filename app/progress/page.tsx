@@ -5,9 +5,9 @@ import styles from "../styles/ProgressPage.module.css"; // Importing custom styl
 
 export default function ProgressPage() {
   // Handle generating report (you can link this to a real report generation feature)
-  const handleGenerateReport = () => {
-    alert("Generating your progress report...");
-  };
+//   const handleGenerateReport = () => {
+//     alert("Generating your progress report...");
+//   };
 
   return (
     <div className={`${styles.pageContainer} flex`}>
