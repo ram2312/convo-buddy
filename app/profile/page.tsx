@@ -130,8 +130,7 @@ export default function Profile() {
             >
               <option value="English">English</option>
               <option value="Spanish">Spanish</option>
-              <option value="French">French</option>
-              <option value="German">German</option>
+  
             </select>
           </div>
 
