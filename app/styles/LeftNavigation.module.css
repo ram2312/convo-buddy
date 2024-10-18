@@ -1,0 +1,72 @@
+.leftNavigation {
+    background-color: white;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+  }
+  
+  .logo {
+    width: 200px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Added consistent top margin for logo */
+    margin-bottom: 40px; /* Ensure space between logo and nav items */
+  }
+  
+  .logo img {
+    
+    border-radius: 24px;
+    object-fit: cover; /* Ensures the image stays within the bounds */
+  }
+  
+  .navItem {
+    display: flex;
+    align-items: center;
+    padding: 0px 20px;
+    font-family: 'Actor', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #555758;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    margin-bottom: 5px; /* Added margin to space out nav items */
+  }
+  
+  .navItem:hover {
+    color: #1D75DD;
+  }
+  
+  .activeNavItem {
+    color: #000;
+  }
+  
+  .logoutButton {
+    display: flex;
+    justify-content: flex-start;
+    padding: 15px 20px;
+    width: 100%;
+    background: none;
+    border: none;
+    font-family: 'Actor', sans-serif;
+    font-size: 14px;
+    color: #ff5f5f;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    margin-top: 200px; /* This will push the logout button to the bottom */
+  }
+  
+  .logoutButton:hover {
+    color: #ff1f1f;
+  }
+  
+  .logoutButton:active {
+    transform: translateY(1px);
+  }
+  

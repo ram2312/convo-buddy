@@ -1,0 +1,51 @@
+/* SelectScenarios.module.css */
+
+.scenarioBlock {
+    display: flex;
+    width: 308px;
+    height: 249px; /* Allow for flexible height */
+    min-width: 260px;
+    padding: 32px; /* Increase padding */
+    flex-direction: column;
+    justify-content: center; /* Center content */
+    align-items: center;
+    gap: 16px; /* Increase gap for spacing */
+    flex-shrink: 0;
+    border-radius: 16px;
+    border: 2px solid #000;
+    background: #FFF;
+  }
+  
+  .scenarioTitle {
+    color: #131313;
+    font-family: Inter, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+    text-align: center; /* Ensure center alignment */
+  }
+  
+  .scenarioContent {
+    color: #131313;
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-size: 16px; /* Reduce font size for balance */
+    font-weight: 300;
+    line-height: 1.5; /* Improve readability */
+    letter-spacing: -0.5px;
+  }
+  
+  .enterScenarioButton {
+    margin-top: 16px;
+    background-color: #1D75DD;
+    color: #FFF;
+    padding: 12px 24px; /* Adjust padding for better clickability */
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .enterScenarioButton:hover {
+    background-color: #134A9F;
+  }
+  
