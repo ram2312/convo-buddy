@@ -1,5 +1,3 @@
-// pages/api/profile/update.ts
-
 import { NextApiRequest, NextApiResponse } from "next";
 import { createClient } from '@supabase/supabase-js';
 
@@ -14,13 +12,12 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 // Create a separate Supabase client for server-side (admin) operations
 export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
 
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
-  const { id, email, fullName, nickName, role, gender, language } = req.body;
+  const { id, fullName, nickName, role, gender, language } = req.body; // Remove unused `email`
 
   try {
     // Ensure id is provided and is an integer
@@ -29,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Update the user profile in the database
-    const { data, error } = await supabaseAdmin
+    const { error } = await supabaseAdmin
       .from('users')
       .update({
         full_name: fullName,
