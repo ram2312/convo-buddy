@@ -28,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Insert the new user into the database
-    const { data: newUser, error } = await supabaseAdmin
+    const { error } = await supabaseAdmin
       .from('users')
       .insert([{ email, password, profile_completed: false }]);
 
