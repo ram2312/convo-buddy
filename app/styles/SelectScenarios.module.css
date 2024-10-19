@@ -1,45 +1,74 @@
-/* SelectScenarios.module.css */
+/* General page container */
+.pageContainer {
+  background-color: #DADADA; /* Page background */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+}
 
+/* Page title */
+.pageTitle {
+  color: #555758;
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 2rem; /* Add some space below the title */
+}
+
+/* Scenario block shared style */
 .scenarioBlock {
   display: flex;
-  width: 308px;
-  height: 249px; /* Allow for flexible height */
-  min-width: 260px;
-  padding: 32px; /* Increase padding */
   flex-direction: column;
-  justify-content: center; /* Center content */
+  justify-content: center;
   align-items: center;
-  gap: 16px; /* Increase gap for spacing */
-  flex-shrink: 0;
+  padding: 24px;
+  margin: 8px;
+  width: 100%;
+  max-width: 308px;
+  height: 249px;
   border-radius: 16px;
   border: 2px solid #000;
   background: #FFF;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.scenarioBlock:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+}
+
+/* Scenario title */
 .scenarioTitle {
   color: #131313;
-  font-family: Inter, sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 20px;
   font-weight: 600;
   letter-spacing: -0.2px;
-  text-align: center; /* Ensure center alignment */
+  text-align: center;
 }
 
+/* Scenario content */
 .scenarioContent {
   color: #131313;
   text-align: center;
-  font-family: Inter, sans-serif;
-  font-size: 16px; /* Reduce font size for balance */
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
   font-weight: 300;
-  line-height: 1.5; /* Improve readability */
+  line-height: 1.5;
   letter-spacing: -0.5px;
 }
 
+/* Button styling */
 .enterScenarioButton {
   margin-top: 16px;
   background-color: #1D75DD;
   color: #FFF;
-  padding: 12px 24px; /* Adjust padding for better clickability */
+  padding: 12px 24px;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -49,18 +78,49 @@
   background-color: #134A9F;
 }
 
-/* Page background color */
-.pageContainer {
-  background-color: #DADADA; /* Page background */
-  
+/* Responsive Grid Layout */
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px; /* Space between blocks */
+  width: 100%;
+  max-width: 1200px; /* Max width of grid container */
+  margin: auto;
 }
 
-/* Page title */
-.pageTitle {
-  color: #555758;
-  font-family: Inter, sans-serif;
-  font-size: 32px;
-  font-weight: 400;
-  text-align: center;
-  margin-bottom: 2rem; /* Add some space below the title */
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .pageTitle {
+    font-size: 24px;
+  }
+
+  .scenarioBlock {
+    height: auto;
+    padding: 16px;
+    max-width: 100%;
+  }
+
+  .enterScenarioButton {
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageTitle {
+    font-size: 20px;
+    margin-bottom: 1rem;
+  }
+
+  .scenarioContent {
+    font-size: 14px;
+  }
+
+  .scenarioBlock {
+    padding: 12px;
+  }
+
+  .enterScenarioButton {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
 }
