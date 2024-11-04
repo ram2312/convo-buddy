@@ -5,7 +5,7 @@ import LeftNavigation from "../components/LeftNavigation";
 import styles from "../styles/ReportsPage.module.css";
 
 const TOTAL_SCENARIOS = 4; // Total number of scenarios available
-const POINTS_PER_SCENARIO = 250; // Points awarded per scenario
+const POINTS_PER_SCENARIO = 250; // Points awaadarded per scenario
 
 export default function ReportsPage() {
   const [scenariosCompleted, setScenariosCompleted] = useState(0);
