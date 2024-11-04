@@ -2,7 +2,7 @@
 
 import 'regenerator-runtime/runtime';
 import { useEffect, useState } from 'react';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import LeftNavigation from '../components/LeftNavigation';
 import styles from '../styles/Conversation.module.css';
