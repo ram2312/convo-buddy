@@ -73,7 +73,7 @@ export default function ProgressPage() {
           <h1 className={styles.pageTitle}>Progress Overview</h1>
 
           {/* Stats Grid */}
-          <div className={`${styles.gridContainer} grid grid-cols-2 md:grid-cols-4 gap-6`}>
+          <div className={`${styles.gridContainer} gap-6`}>
             <div className={styles.statBlock}>
               <h3 className={styles.statTitle}>Scenarios Completed</h3>
               <p className={styles.statValue}>{completionPercentage}%</p>
