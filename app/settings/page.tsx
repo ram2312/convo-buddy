@@ -138,14 +138,14 @@ export default function Settings() {
             </div>
 
             <div className={styles.formGroup}>
-              <label className={styles.label}>Role (Parent/Teacher)</label>
+              <label className={styles.label}>Role (Parent/Child)</label>
               <select
                 value={role}
                 className={styles.input}
                 disabled={true} // Disable editing for the role field
               >
                 <option value="Parent">Parent</option>
-                <option value="Teacher">Teacher</option>
+                {/* <option value="Teacher">Teacher</option> */}
                 <option value="Child">Child</option>
               </select>
             </div>

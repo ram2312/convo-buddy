@@ -100,14 +100,14 @@ export default function Profile() {
           </div>
 
           <div className={styles.formGroup}>
-            <label className={styles.label}>Role (Parent/Teacher)</label>
+            <label className={styles.label}>Role (Parent/Child)</label>
             <select
               value={role}
               onChange={(e) => setRole(e.target.value)}
               className={styles.input}
             >
               <option value="Parent">Parent</option>
-              <option value="Teacher">Teacher</option>
+              {/* <option value="Teacher">Teacher</option> */}
               <option value="Child">Child</option>
             </select>
           </div>
