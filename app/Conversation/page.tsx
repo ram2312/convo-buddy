@@ -1,15 +1,25 @@
-// @ts-nocheck
 "use client";
+
 import 'regenerator-runtime/runtime';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import LeftNavigation from '../components/LeftNavigation';
 import styles from '../styles/Conversation.module.css';
 
+type Message = {
+  sender: 'user' | 'bot';
+  content: string;
+};
+
+// Define the expected structure of the response from the chat API
+interface ChatApiResponse {
+  response: string;
+}
+
 export default function Conversation() {
   const [userMessage, setUserMessage] = useState('');
-  const [conversation, setConversation] = useState<{ sender: string; content: string }[]>([]);
+  const [conversation, setConversation] = useState<Message[]>([]);
   const [fullName, setFullName] = useState('');
   const [isClient, setIsClient] = useState(false);
 
@@ -18,7 +28,6 @@ export default function Conversation() {
   useEffect(() => {
     setIsClient(true);
 
-    // Fetch the user's full name from local storage or an API
     const fetchUserData = async () => {
       const userEmail = localStorage.getItem("userEmail");
       if (userEmail) {
@@ -37,10 +46,7 @@ export default function Conversation() {
     fetchUserData();
   }, []);
 
-  if (!isClient) {
-    return null;
-  }
-
+  if (!isClient) return null;
   if (!browserSupportsSpeechRecognition) {
     return <p>Your browser does not support speech recognition.</p>;
   }
@@ -58,19 +64,23 @@ export default function Conversation() {
     const messageContent = transcript || userMessage;
     if (!messageContent.trim()) return;
 
-    // Add user message to conversation
     setConversation((prev) => [...prev, { sender: 'user', content: messageContent }]);
     setUserMessage('');
     resetTranscript();
 
-    // Send the message to the bot API and get response
     try {
-      const response = await axios.post('/api/chat', { message: messageContent });
+      const response = await axios.post<ChatApiResponse>('/api/chat', { message: messageContent });
       const botMessage = response.data.response || 'Sorry, I didn’t understand that.';
       setConversation((prev) => [...prev, { sender: 'bot', content: botMessage }]);
     } catch (error) {
       console.error('Error fetching response:', error);
-      const errorMessage = error?.response?.data?.error || 'Sorry, something went wrong.';
+
+      let errorMessage = 'Sorry, something went wrong.';
+      if (axios.isAxiosError(error) && error.response) {
+        // Check if `error` is an AxiosError and contains a response
+        errorMessage = error.response.data?.error || errorMessage;
+      }
+      
       setConversation((prev) => [...prev, { sender: 'bot', content: errorMessage }]);
     }
   };
@@ -84,17 +94,12 @@ export default function Conversation() {
 
         <div className={styles.conversationContainer}>
           <div className={styles.messageList}>
-            {/* Display a greeting message with the user's name, using botMessage style */}
-            {!fullName ? (
-              <div className={styles.botMessage}>
-                <div>Hello! How are you today? How may I help you?</div>
+            <div className={styles.botMessage}>
+              <div>
+                Hello {fullName ? fullName : ''}! How are you today? How may I help you?
               </div>
-            ) : (
-              <div className={styles.botMessage}>
-                <div>Hello {fullName}! How are you today? How may I help you?</div>
-              </div>
-            )}
-            
+            </div>
+
             {conversation.map((msg, index) => (
               <div key={index} className={msg.sender === 'user' ? styles.userMessage : styles.botMessage}>
                 <div>{msg.content}</div>
@@ -112,8 +117,7 @@ export default function Conversation() {
                 className={styles.messageInput}
               />
               <button onClick={handleVoiceInput} className={styles.voiceButton}>
-                {/* Replace with actual microphone SVG */}
-                <img src="/images/mic.svg" alt="Mic"  />
+                <img src="/images/mic.svg" alt="Mic" />
               </button>
               <button onClick={handleSubmitMessage} className={styles.sendButton}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
