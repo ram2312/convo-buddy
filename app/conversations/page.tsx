@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import LeftNavigation from "../components/LeftNavigation";
 import styles from "../styles/Conversations.module.css";
@@ -40,7 +40,15 @@ const scenarioChats: Record<number, { type: string; content: string }[]> = {
   ],
 };
 
-export default function Conversations() {
+export default function ConversationsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Conversations />
+    </Suspense>
+  );
+}
+
+function Conversations() {
   const searchParams = useSearchParams();
   const scenarioParam = searchParams?.get("scenario");
   const name = searchParams?.get("name") || "Conversation";
@@ -157,7 +165,6 @@ export default function Conversations() {
             )}
           </div>
 
-          {/* Input field inside the chat box */}
           {!isCompleted && (
             <div className={styles.messageInputContainer}>
               <div className={styles.inputWrapper}>
