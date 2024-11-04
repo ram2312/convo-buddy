@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 import LeftNavigation from "../components/LeftNavigation";
-import styles from "../styles/ProgressPage.module.css";
+import styles from "../styles/ReportsPage.module.css";
 
 const TOTAL_SCENARIOS = 4; // Total number of scenarios available
 const POINTS_PER_SCENARIO = 250; // Points awarded per scenario
 
-export default function ProgressPage() {
+export default function ReportsPage() {
   const [scenariosCompleted, setScenariosCompleted] = useState(0);
   const [completionPercentage, setCompletionPercentage] = useState(0);
   const [pointsEarned, setPointsEarned] = useState(0);
@@ -62,6 +62,11 @@ export default function ProgressPage() {
     fetchProgressData();
   }, []);
 
+  // Handle report generation (triggers print)
+  const handleGenerateReport = () => {
+    window.print();
+  };
+
   return (
     <div className={`${styles.pageContainer} flex`}>
       <LeftNavigation />
@@ -94,6 +99,13 @@ export default function ProgressPage() {
               <h3 className={styles.statTitle}>Last Badge Earned</h3>
               <p className={styles.statValue}>{lastBadgeEarned}</p>
             </div>
+          </div>
+
+          {/* Generate Report Button */}
+          <div className="flex justify-center">
+            <button onClick={handleGenerateReport} className={styles.generateButton}>
+              Generate Report
+            </button>
           </div>
         </div>
       </div>

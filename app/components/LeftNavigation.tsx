@@ -33,7 +33,7 @@ export default function LeftNavigation() {
         <Link href="/progress" className={styles.navItem}>
           Progress
         </Link>
-        <Link href="/conversations" className={styles.navItem}>
+        <Link href="/Conversation" className={styles.navItem}>
           Conversations
         </Link>
         <Link href="/reports" className={styles.navItem}>

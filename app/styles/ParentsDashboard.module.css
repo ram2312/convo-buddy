@@ -1,0 +1,139 @@
+.pageContainer {
+    display: flex;
+    background-color: #f3f4f6;
+    min-height: 100vh;
+  }
+  
+  .dashboardContent {
+    padding: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Adjust padding when left navigation is present */
+  .withNav {
+    margin-left: 16rem; /* Adjust this based on the width of your LeftNavigation component */
+  }
+  
+  .pageTitle {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #555758;
+    margin-bottom: 2rem;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .progressContainer {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 48rem;
+    justify-content: center;
+  }
+  
+  .progressCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F2EDFD;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 50%;
+  }
+  
+  .progressTitle {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #4b5563;
+  }
+  
+  .progressValue {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #2563eb;
+  }
+  
+  .progressDetails {
+    color: #6b7280;
+  }
+  
+  .tipsContainer {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    width: 100%;
+    max-width: 48rem;
+    margin-top: 1rem;
+  }
+  
+  .tipsTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1f2937;
+  }
+  
+  .tipsText {
+    color: #4b5563;
+    margin-bottom: 1rem;
+  }
+  
+  .tipsList {
+    list-style-type: disc;
+    list-style-position: inside;
+    color: #4b5563;
+    margin-bottom: 1rem;
+  }
+  
+  .tipsListItem {
+    margin-bottom: 0.5rem;
+  }
+  
+  .toggleButton {
+    background-color: #dc2626;
+    color: #ffffff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.375rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    margin-top: 2rem;
+  }
+  
+  .toggleButton:hover {
+    background-color: #b91c1c;
+  }
+  
+  .exitButton {
+    background-color: #4b5563;
+    color: #ffffff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.375rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+  }
+  
+  .exitButton:hover {
+    background-color: #374151;
+  }
+  
+  .exitButton.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .note {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #6b7280;
+    font-size: 1rem;
+  }
+  
