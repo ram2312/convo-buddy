@@ -25,24 +25,24 @@ export default function FavoritesPage() {
   const [showFavorites, setShowFavorites] = useState<boolean>(false);
 
   const fetchFavoriteCounts = async () => {
-    const { data: favoriteData, error } = await supabase
+    const { data: favoriteData } = await supabase
       .from("favorites")
       .select("scenario_id");
-
-    if (error) {
-      console.error("Error fetching favorite counts:", error);
+  
+    if (!favoriteData) {
+      console.error("Error fetching favorite counts.");
       return {};
     }
-
+  
     const counts: { [key: number]: number } = {};
-    favoriteData?.forEach((favorite) => {
+    favoriteData.forEach((favorite) => {
       const scenarioId = favorite.scenario_id;
       counts[scenarioId] = (counts[scenarioId] || 0) + 1;
     });
-
+  
     return counts;
   };
-
+  
   useEffect(() => {
     const fetchScenariosAndFavorites = async () => {
       const userEmail = localStorage.getItem("userEmail");

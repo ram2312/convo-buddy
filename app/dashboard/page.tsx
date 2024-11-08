@@ -11,7 +11,6 @@ const POINTS_PER_SCENARIO = 250;
 
 const Dashboard: React.FC = () => {
   const router = useRouter();
-  const [scenariosCompleted, setScenariosCompleted] = useState(0);
   const [completionPercentage, setCompletionPercentage] = useState(0);
   const [pointsEarned, setPointsEarned] = useState(0);
   const [badgesUnlocked, setBadgesUnlocked] = useState(0);
@@ -29,17 +28,17 @@ const Dashboard: React.FC = () => {
     beginner: [
       "Welcome! As a beginner, focus on completing each scenario carefully.",
       "Practice basic communication skills and observe how you interact.",
-      "Keep going! You're building a strong foundation for effective communication."
+      "Keep going! You're building a strong foundation for effective communication.",
     ],
     intermediate: [
       "You're making great progress and reached Intermediate level! Try refining your responses.",
       "Think about the scenarios and how you can handle similar situations in real life.",
-      "Keep practicing, and you'll see improvement in your communication skills."
+      "Keep practicing, and you'll see improvement in your communication skills.",
     ],
     advanced: [
       "Amazing work! You've completed all scenarios and reached Advanced level!",
       "Now focus on mastering nuanced communication techniques.",
-      "Consider exploring advanced scenarios to further refine your skills."
+      "Consider exploring advanced scenarios to further refine your skills.",
     ],
   };
 
@@ -65,7 +64,6 @@ const Dashboard: React.FC = () => {
         const data = await response.json();
 
         if (response.ok) {
-          setScenariosCompleted(data.scenariosCompleted);
           setCompletionPercentage(
             Math.round((data.scenariosCompleted / TOTAL_SCENARIOS) * 100)
           );
@@ -92,10 +90,6 @@ const Dashboard: React.FC = () => {
 
     fetchProgressData();
   }, []);
-
-  const handleSelectScenario = () => {
-    router.push("/select_scenario");
-  };
 
   const handleCustomScenario = () => {
     router.push("/Conversation");
@@ -126,103 +120,117 @@ const Dashboard: React.FC = () => {
   return (
     <div className={styles.pageContainer}>
       {!isParentMode && <LeftNavigation />}
-      <div className={`p-6 w-full flex flex-col items-center h-screen ${isParentMode ? "" : "ml-64"}`}>
-          <div className="flex w-full max-w-7xl space-x-8">
-            <div className="w-2/5 flex flex-col space-y-4 bg-white p-6 shadow-lg rounded-lg">
-              <h1 className={styles.pageTitle}>Progress Overview</h1>
-              <div className={`${styles.gridContainer} grid gap-2`}>
+      <div
+        className={`p-6 w-full flex flex-col items-center h-screen ${
+          isParentMode ? "" : "ml-64"
+        }`}
+      >
+        <div className="flex w-full max-w-7xl space-x-8">
+          <div className="w-2/5 flex flex-col space-y-4 bg-white p-6 shadow-lg rounded-lg">
+            <h1 className={styles.pageTitle}>Progress Overview</h1>
+            <div className={`${styles.gridContainer} grid gap-2`}>
               <div className={styles.statBlock}>
-  <h3 className={styles.statTitle}>Badges Unlocked</h3>
-  <p className={styles.statValue}>
-    <span className={styles.stars}>
-      {badgesUnlocked === 0 ? (
-        "0"
-      ) : (
-        <>
-          {badgesUnlocked >= 1 && (
-            <Image
-              src="/images/star-medal.png"
-              alt="star"
-              width={24}
-              height={24}
-              className={styles.starImage}
-            />
-          )}
-          {badgesUnlocked >= 2 && (
-            <Image
-              src="/images/star-medal.png"
-              alt="star"
-              width={24}
-              height={24}
-              className={styles.starImage}
-            />
-          )}
-          {badgesUnlocked >= 3 && (
-            <Image
-              src="/images/star-medal.png"
-              alt="star"
-              width={24}
-              height={24}
-              className={styles.starImage}
-            />
-          )}
-        </>
-      )}
-    </span>
-  </p>
-</div>
-
-                <div className={styles.statBlock}>
-                  <h3 className={styles.statTitle}>Points Earned</h3>
-                  <p className={styles.statValue}>{pointsEarned}</p>
-                </div>
-                <div className={styles.statBlock}>
-                  <h3 className={styles.statTitle}>Scenarios Completed</h3>
-                  <p className={styles.statValue}>{completionPercentage}%</p>
-                </div>
+                <h3 className={styles.statTitle}>Badges Unlocked</h3>
+                <p className={styles.statValue}>
+                  <span className={styles.stars}>
+                    {badgesUnlocked === 0 ? (
+                      "0"
+                    ) : (
+                      <>
+                        {badgesUnlocked >= 1 && (
+                          <Image
+                            src="/images/star-medal.png"
+                            alt="star"
+                            width={24}
+                            height={24}
+                            className={styles.starImage}
+                          />
+                        )}
+                        {badgesUnlocked >= 2 && (
+                          <Image
+                            src="/images/star-medal.png"
+                            alt="star"
+                            width={24}
+                            height={24}
+                            className={styles.starImage}
+                          />
+                        )}
+                        {badgesUnlocked >= 3 && (
+                          <Image
+                            src="/images/star-medal.png"
+                            alt="star"
+                            width={24}
+                            height={24}
+                            className={styles.starImage}
+                          />
+                        )}
+                      </>
+                    )}
+                  </span>
+                </p>
               </div>
-              <button onClick={handleCustomScenario} className="bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700 transition-all mt-6" style={{ fontSize: '24px', fontWeight: '600' }}>
-                Start a New Conversation
+
+              <div className={styles.statBlock}>
+                <h3 className={styles.statTitle}>Points Earned</h3>
+                <p className={styles.statValue}>{pointsEarned}</p>
+              </div>
+              <div className={styles.statBlock}>
+                <h3 className={styles.statTitle}>Scenarios Completed</h3>
+                <p className={styles.statValue}>{completionPercentage}%</p>
+              </div>
+            </div>
+            <button
+              onClick={handleCustomScenario}
+              className="bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700 transition-all mt-6"
+              style={{ fontSize: "24px", fontWeight: "600" }}
+            >
+              Start a New Conversation
+            </button>
+          </div>
+          <div className="w-1/3 bg-white p-6 shadow-lg rounded-lg flex flex-col space-y-4">
+            {userRole === "Parent" && (
+              <button
+                onClick={toggleParentMode}
+                className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition-all w-full mb-4"
+                style={{ fontSize: "18px", fontWeight: "600" }}
+              >
+                {isParentMode ? "Exit Parent Mode" : "Enter Parent Mode"}
+              </button>
+            )}
+            <h2 className="text-2xl font-semibold" style={{ color: "#3C3C3C" }}>
+              Feedback Generation Chat
+            </h2>
+            <div className={styles.chatContainer}>
+              {!feedbackMessagesVisible ? (
+                <div className="chat-message initial-message">
+                  Type &quot;feedback&quot; and press Enter to receive guidance based on your progress.
+                </div>
+              ) : (
+                getFeedbackMessages().map((msg, index) => (
+                  <div key={index} className="chat-message bot-message">
+                    {msg}
+                  </div>
+                ))
+              )}
+            </div>
+            <div className={`${styles.chatInputContainer} flex items-center`}>
+              <input
+                type="text"
+                placeholder="Type 'feedback'..."
+                value={feedbackInput}
+                onChange={(e) => setFeedbackInput(e.target.value)}
+                onKeyPress={(e) => e.key === "Enter" && handleFeedbackSubmit()}
+                className="flex-grow p-2 border rounded-md mr-2"
+              />
+              <button
+                onClick={handleFeedbackSubmit}
+                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+              >
+                Send
               </button>
             </div>
-            <div className="w-1/3 bg-white p-6 shadow-lg rounded-lg flex flex-col space-y-4">
-              {userRole === "Parent" && (
-                <button onClick={toggleParentMode} className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition-all w-full mb-4" style={{ fontSize: '18px', fontWeight: '600' }}>
-                  {isParentMode ? "Exit Parent Mode" : "Enter Parent Mode"}
-                </button>
-              )}
-              <h2 className="text-2xl font-semibold" style={{ color: '#3C3C3C' }}>
-                Feedback Generation Chat
-              </h2>
-              <div className={styles.chatContainer}>
-                {!feedbackMessagesVisible ? (
-                  <div className="chat-message initial-message">
-                    Type &quot;feedback&quot; and press Enter to receive guidance based on your progress.
-                  </div>
-                ) : (
-                  getFeedbackMessages().map((msg, index) => (
-                    <div key={index} className="chat-message bot-message">
-                      {msg}
-                    </div>
-                  ))
-                )}
-              </div>
-              <div className={`${styles.chatInputContainer} flex items-center`}>
-                <input
-                  type="text"
-                  placeholder="Type 'feedback'..."
-                  value={feedbackInput}
-                  onChange={(e) => setFeedbackInput(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleFeedbackSubmit()}
-                  className="flex-grow p-2 border rounded-md mr-2"
-                />
-                <button onClick={handleFeedbackSubmit} className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-                  Send
-                </button>
-              </div>
-            </div>
           </div>
-        
+        </div>
       </div>
     </div>
   );

@@ -24,25 +24,25 @@ export default function SelectScenarios() {
   const [favorites, setFavorites] = useState<number[]>([]);
   const [favoriteCounts, setFavoriteCounts] = useState<{ [key: number]: number }>({});
 
-  // Define the fetchFavoriteCounts function
   const fetchFavoriteCounts = async () => {
-    const { data: favoriteData, error } = await supabase
+    const { data: favoriteData } = await supabase
       .from("favorites")
       .select("scenario_id");
-
-    if (error) {
-      console.error("Error fetching favorite counts:", error);
+  
+    if (!favoriteData) {
+      console.error("Error fetching favorite counts.");
       return {};
     }
-
+  
     const counts: { [key: number]: number } = {};
-    favoriteData?.forEach((favorite) => {
+    favoriteData.forEach((favorite) => {
       const scenarioId = favorite.scenario_id;
       counts[scenarioId] = (counts[scenarioId] || 0) + 1;
     });
-
+  
     return counts;
   };
+  
 
   useEffect(() => {
     const fetchScenariosAndFavorites = async () => {
