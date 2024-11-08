@@ -22,6 +22,10 @@ const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   const feedbackMessages = {
+    start: [
+      "Welcome! As a beginner, focus on completing each scenario carefully.",
+      "Practice basic communication skills and observe how you interact.",
+    ],
     beginner: [
       "Welcome! As a beginner, focus on completing each scenario carefully.",
       "Practice basic communication skills and observe how you interact.",
@@ -33,13 +37,14 @@ const Dashboard: React.FC = () => {
       "Keep practicing, and you'll see improvement in your communication skills."
     ],
     advanced: [
-      "Amazing work! You've completed all scenarios and Reached Advanced level!",
+      "Amazing work! You've completed all scenarios and reached Advanced level!",
       "Now focus on mastering nuanced communication techniques.",
       "Consider exploring advanced scenarios to further refine your skills."
     ],
   };
 
   const getFeedbackMessages = () => {
+    if (badgesUnlocked === 0) return feedbackMessages.start;
     if (badgesUnlocked === 1) return feedbackMessages.beginner;
     if (badgesUnlocked === 2) return feedbackMessages.intermediate;
     return feedbackMessages.advanced;
@@ -113,7 +118,7 @@ const Dashboard: React.FC = () => {
   if (loading) {
     return (
       <div className={loaderStyles.loaderOverlay}>
-        {/* <div className={loaderStyles.loader}></div> */}
+        {/* Loader */}
       </div>
     );
   }
@@ -122,39 +127,51 @@ const Dashboard: React.FC = () => {
     <div className={styles.pageContainer}>
       {!isParentMode && <LeftNavigation />}
       <div className={`p-6 w-full flex flex-col items-center h-screen ${isParentMode ? "" : "ml-64"}`}>
-        {scenariosCompleted === 0 ? (
-          <div className="flex flex-col items-center space-y-6 w-full bg-white p-8 shadow-lg rounded-lg">
-            <h1 className="text-4xl font-bold text-center" style={{ color: '#3C3C3C' }}>
-              Welcome to ConvoBuddy!
-            </h1>
-            <p className="text-center" style={{ color: '#131313', fontSize: '24px' }}>
-              Start by selecting a scenario to practice your skills, or jump into a conversation.
-              You can track your status, and your progress will be displayed once you’ve started at least one scenario.
-            </p>
-            <div className="flex justify-center space-x-4">
-              <button onClick={handleSelectScenario} className="bg-green-600 text-white py-2 px-6 rounded-md hover:bg-green-700 transition-all" style={{ fontSize: '24px', fontWeight: '600' }}>
-                Select Scenario
-              </button>
-              <button onClick={handleCustomScenario} className="bg-[#CDDB28] text-white py-2 px-6 rounded-md hover:bg-purple-700 transition-all" style={{ fontSize: '24px', fontWeight: '600' }}>
-                Select Custom Scenario
-              </button>
-            </div>
-          </div>
-        ) : (
           <div className="flex w-full max-w-7xl space-x-8">
             <div className="w-2/5 flex flex-col space-y-4 bg-white p-6 shadow-lg rounded-lg">
               <h1 className={styles.pageTitle}>Progress Overview</h1>
               <div className={`${styles.gridContainer} grid gap-2`}>
-                <div className={styles.statBlock}>
-                  <h3 className={styles.statTitle}>Badges Unlocked</h3>
-                  <p className={styles.statValue}>
-                    <span className={styles.stars}>
-                      {badgesUnlocked >= 1 && <Image src="/images/star-medal.png" alt="star" width={24} height={24} className={styles.starImage} />}
-                      {badgesUnlocked >= 2 && <Image src="/images/star-medal.png" alt="star" width={24} height={24} className={styles.starImage} />}
-                      {badgesUnlocked >= 3 && <Image src="/images/star-medal.png" alt="star" width={24} height={24} className={styles.starImage} />}
-                    </span>
-                  </p>
-                </div>
+              <div className={styles.statBlock}>
+  <h3 className={styles.statTitle}>Badges Unlocked</h3>
+  <p className={styles.statValue}>
+    <span className={styles.stars}>
+      {badgesUnlocked === 0 ? (
+        "0"
+      ) : (
+        <>
+          {badgesUnlocked >= 1 && (
+            <Image
+              src="/images/star-medal.png"
+              alt="star"
+              width={24}
+              height={24}
+              className={styles.starImage}
+            />
+          )}
+          {badgesUnlocked >= 2 && (
+            <Image
+              src="/images/star-medal.png"
+              alt="star"
+              width={24}
+              height={24}
+              className={styles.starImage}
+            />
+          )}
+          {badgesUnlocked >= 3 && (
+            <Image
+              src="/images/star-medal.png"
+              alt="star"
+              width={24}
+              height={24}
+              className={styles.starImage}
+            />
+          )}
+        </>
+      )}
+    </span>
+  </p>
+</div>
+
                 <div className={styles.statBlock}>
                   <h3 className={styles.statTitle}>Points Earned</h3>
                   <p className={styles.statValue}>{pointsEarned}</p>
@@ -191,14 +208,21 @@ const Dashboard: React.FC = () => {
                 )}
               </div>
               <div className={`${styles.chatInputContainer} flex items-center`}>
-                <input type="text" placeholder="Type 'feedback'..." value={feedbackInput} onChange={(e) => setFeedbackInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleFeedbackSubmit()} className="flex-grow p-2 border rounded-md mr-2" />
+                <input
+                  type="text"
+                  placeholder="Type 'feedback'..."
+                  value={feedbackInput}
+                  onChange={(e) => setFeedbackInput(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleFeedbackSubmit()}
+                  className="flex-grow p-2 border rounded-md mr-2"
+                />
                 <button onClick={handleFeedbackSubmit} className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
                   Send
                 </button>
               </div>
             </div>
           </div>
-        )}
+        
       </div>
     </div>
   );

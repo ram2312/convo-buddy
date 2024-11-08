@@ -42,7 +42,9 @@ export default function LeftNavigation() {
         <Link href="/settings" className={styles.navItem}>
           Settings
         </Link>
-
+        <Link href="/favorites" className={styles.navItem}>
+          Favorites
+        </Link>
         {/* Logout button */}
         <button 
           onClick={handleLogout} 
