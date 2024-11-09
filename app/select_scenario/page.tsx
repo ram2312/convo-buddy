@@ -109,9 +109,7 @@ export default function SelectScenarios() {
       window.location.href = "/auth/login";
       return;
     }
-  
-    try {
-      const response = await fetch("/api/favorites/add", {
+        const response = await fetch("/api/favorites/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: userEmail, scenarioId })
@@ -129,9 +127,7 @@ export default function SelectScenarios() {
           alert("An unexpected error occurred. Please try again.");
         }
       }
-    } catch (error) {
-      alert("An error occurred, please try again.");
-    }
+   
   };
   
 
