@@ -74,10 +74,10 @@ export default function FavoritesPage() {
           .select("scenario_id")
           .eq("user_email", userEmail);
 
-          if (!favoriteData) {
-            console.error("Error fetching favorites.");
-            return;
-          }
+          // if (!favoriteData) {
+          //   console.error("Error fetching favorites.");
+          //   return;
+          // }
           
 
         if (favoriteData) {
@@ -114,7 +114,7 @@ export default function FavoritesPage() {
       return;
     }
   
-    try {
+  
       // Check if the scenario is already a favorite
       if (favorites.includes(scenarioId)) {
         // If it's already a favorite, remove it
@@ -153,9 +153,7 @@ export default function FavoritesPage() {
           }
         }
       }
-    } catch (error) {
-      alert("An error occurred, please try again.");
-    }
+    
   };
   
 
