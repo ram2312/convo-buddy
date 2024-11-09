@@ -54,7 +54,6 @@ export default function SelectScenarios() {
         return;
       }
 
-      try {
         // Fetch scenarios
         const { data: scenarioData} = await supabase
           .from("scenarios")
@@ -89,9 +88,7 @@ export default function SelectScenarios() {
         // Fetch favorite counts
         const counts = await fetchFavoriteCounts();
         setFavoriteCounts(counts);
-      } catch (error) {
-        console.error("Unexpected error in fetchScenariosAndFavorites:", error);
-      }
+      
     };
 
     fetchScenariosAndFavorites();
