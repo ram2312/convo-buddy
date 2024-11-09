@@ -69,7 +69,7 @@ export default function FavoritesPage() {
         }
 
         // Fetch user's favorites
-        const { data: favoriteData, error: favoriteError } = await supabase
+        const { data: favoriteData  } = await supabase
           .from("favorites")
           .select("scenario_id")
           .eq("user_email", userEmail);
