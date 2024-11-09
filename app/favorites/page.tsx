@@ -182,7 +182,7 @@ export default function FavoritesPage() {
                     >
               {favorites.includes(scenario.id) ? "Remove" : "Add to Favorites"}
             </button>
-            <span className="text-gray-800">{favoriteCounts[scenario.id] || 0} liked it</span>
+            <span className="text-gray-800">{favoriteCounts[scenario.id] || 0} liked</span>
                       </div>
                 </div>
               )

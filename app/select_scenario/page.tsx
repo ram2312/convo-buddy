@@ -159,7 +159,7 @@ export default function SelectScenarios() {
         
         {/* Like Count Logic */}
         {scenario.id !== 5 ? ( // Check if scenario ID is not 5
-          <span className="text-gray-800">{favoriteCounts[scenario.id] || 0} liked it</span>
+          <span className="text-gray-800" >{favoriteCounts[scenario.id] || 0} liked</span>
         ) : null}
       </div>
     </div>
