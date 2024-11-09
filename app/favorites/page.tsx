@@ -55,14 +55,14 @@ export default function FavoritesPage() {
 
       try {
         // Fetch scenarios
-        const { data: scenarioData, error: scenarioError } = await supabase
+        const { data: scenarioData } = await supabase
           .from("scenarios")
           .select("id, name, description");
 
-        if (scenarioError) {
-          console.error("Error fetching scenarios:", scenarioError);
-          return;
-        }
+          if (!scenarioData) {
+            console.error("Error fetching scenarios.");
+            return;
+          }          
 
         if (scenarioData) {
           setScenarios(scenarioData);
@@ -74,10 +74,11 @@ export default function FavoritesPage() {
           .select("scenario_id")
           .eq("user_email", userEmail);
 
-        if (favoriteError) {
-          console.error("Error fetching favorites:", favoriteError);
-          return;
-        }
+          if (!favoriteData) {
+            console.error("Error fetching favorites.");
+            return;
+          }
+          
 
         if (favoriteData) {
           setFavorites(favoriteData.map((favorite) => favorite.scenario_id));
