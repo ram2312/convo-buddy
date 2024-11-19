@@ -1,14 +1,14 @@
 "use client";
 
-import 'regenerator-runtime/runtime';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import LeftNavigation from '../components/LeftNavigation';
-import styles from '../styles/Conversation.module.css';
+import "regenerator-runtime/runtime";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import LeftNavigation from "../components/LeftNavigation";
+import styles from "../styles/Conversation.module.css";
 
 type Message = {
-  sender: 'user' | 'bot';
+  sender: "user" | "bot";
   content: string;
 };
 
@@ -18,12 +18,13 @@ interface ChatApiResponse {
 }
 
 export default function Conversation() {
-  const [userMessage, setUserMessage] = useState('');
+  const [userMessage, setUserMessage] = useState("");
   const [conversation, setConversation] = useState<Message[]>([]);
-  const [fullName, setFullName] = useState('');
+  const [fullName, setFullName] = useState("");
   const [isClient, setIsClient] = useState(false);
 
-  const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
+  const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } =
+    useSpeechRecognition();
 
   useEffect(() => {
     setIsClient(true);
@@ -56,7 +57,7 @@ export default function Conversation() {
       SpeechRecognition.stopListening();
     } else {
       resetTranscript();
-      SpeechRecognition.startListening({ continuous: true, language: 'en-US' });
+      SpeechRecognition.startListening({ continuous: true, language: "en-US" });
     }
   };
 
@@ -64,24 +65,23 @@ export default function Conversation() {
     const messageContent = transcript || userMessage;
     if (!messageContent.trim()) return;
 
-    setConversation((prev) => [...prev, { sender: 'user', content: messageContent }]);
-    setUserMessage('');
+    setConversation((prev) => [...prev, { sender: "user", content: messageContent }]);
+    setUserMessage("");
     resetTranscript();
 
     try {
-      const response = await axios.post<ChatApiResponse>('/api/chat', { message: messageContent });
-      const botMessage = response.data.response || 'Sorry, I didn’t understand that.';
-      setConversation((prev) => [...prev, { sender: 'bot', content: botMessage }]);
+      const response = await axios.post<ChatApiResponse>("/api/chat", { message: messageContent });
+      const botMessage = response.data.response || "Sorry, I didn’t understand that.";
+      setConversation((prev) => [...prev, { sender: "bot", content: botMessage }]);
     } catch (error) {
-      console.error('Error fetching response:', error);
+      console.error("Error fetching response:", error);
 
-      let errorMessage = 'Sorry, something went wrong.';
+      let errorMessage = "Sorry, something went wrong.";
       if (axios.isAxiosError(error) && error.response) {
-        // Check if `error` is an AxiosError and contains a response
         errorMessage = error.response.data?.error || errorMessage;
       }
-      
-      setConversation((prev) => [...prev, { sender: 'bot', content: errorMessage }]);
+
+      setConversation((prev) => [...prev, { sender: "bot", content: errorMessage }]);
     }
   };
 
@@ -93,15 +93,16 @@ export default function Conversation() {
         <h1 className={`${styles.pageTitle} text-3xl font-semibold mb-8`}>Direct Chat</h1>
 
         <div className={styles.conversationContainer}>
-          <div className={styles.messageList}>
+          <div className={styles.messageList} aria-live="polite">
             <div className={styles.botMessage}>
-              <div>
-                Hello {fullName ? fullName : ''}! How are you today? How may I help you?
-              </div>
+              <div>Hello {fullName ? fullName : ""}! How are you today? How may I help you?</div>
             </div>
 
             {conversation.map((msg, index) => (
-              <div key={index} className={msg.sender === 'user' ? styles.userMessage : styles.botMessage}>
+              <div
+                key={index}
+                className={msg.sender === "user" ? styles.userMessage : styles.botMessage}
+              >
                 <div>{msg.content}</div>
               </div>
             ))}
@@ -109,25 +110,59 @@ export default function Conversation() {
 
           <div className={styles.messageInputContainer}>
             <div className={styles.inputWrapper}>
+              <label htmlFor="messageInput" className="sr-only">
+                Write your message
+              </label>
               <input
+                id="messageInput"
                 type="text"
                 value={transcript || userMessage}
                 onChange={(e) => setUserMessage(e.target.value)}
                 placeholder="Write a message..."
                 className={styles.messageInput}
               />
-              <button onClick={handleVoiceInput} className={styles.voiceButton}>
+              <button
+                onClick={handleVoiceInput}
+                className={styles.voiceButton}
+                aria-label={listening ? "Stop voice input" : "Start voice input"}
+              >
                 <img src="/images/mic.svg" alt="Mic" />
               </button>
-              <button onClick={handleSubmitMessage} className={styles.sendButton}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <button
+                onClick={handleSubmitMessage}
+                className={styles.sendButton}
+                aria-label="Send message"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 13 13"
+                  fill="none"
+                  aria-hidden="true"
+                >
                   <g clipPath="url(#clip0_4236_1839)">
-                    <path d="M11.9336 1.06665L6.06689 6.93332" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M11.9338 1.06665L8.20042 11.7333L6.06709 6.93332L1.26709 4.79998L11.9338 1.06665Z" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path
+                      d="M11.9336 1.06665L6.06689 6.93332"
+                      stroke="white"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M11.9338 1.06665L8.20042 11.7333L6.06709 6.93332L1.26709 4.79998L11.9338 1.06665Z"
+                      stroke="white"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </g>
                   <defs>
                     <clipPath id="clip0_4236_1839">
-                      <rect width="12.8" height="12.8" fill="white" transform="translate(0.200195)"/>
+                      <rect
+                        width="12.8"
+                        height="12.8"
+                        fill="white"
+                        transform="translate(0.200195)"
+                      />
                     </clipPath>
                   </defs>
                 </svg>

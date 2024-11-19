@@ -70,6 +70,8 @@ const ParentsDashboard: React.FC = () => {
       <div className={`${styles.dashboardContent} ${!isParentRestrictionEnabled ? styles.withNav : ""}`}>
         <h1 className={styles.pageTitle}>Parent Mode - Overview</h1>
 
+
+
         {/* Progress Overview */}
         <div className={styles.progressContainer}>
           <div className={styles.progressCard}>
@@ -85,7 +87,7 @@ const ParentsDashboard: React.FC = () => {
 
         {/* Tips Section */}
         <div className={styles.tipsContainer}>
-          <h2 className={styles.tipsTitle}>Tips for Effective Use</h2>
+        <h2 className={styles.tipsTitle}>Tips for Effective Use</h2>
           {isParentRestrictionEnabled ? (
             <div>
               <p className={styles.tipsText}>
@@ -101,8 +103,8 @@ const ParentsDashboard: React.FC = () => {
             </div>
           ) : (
             <div>
-              <h3 className={styles.tipsTitle}>1. How to Use ConvoBuddy</h3>
-              <p className={styles.tipsText}>
+        <h3 className={styles.tipsTitle}>1. How to Use ConvoBuddy</h3>
+          <p className={styles.tipsText}>
                 ConvoBuddy is designed to help users improve communication skills through various scenarios.
               </p>
               <h3 className={styles.tipsTitle}>2. Benefits of Regular Practice</h3>
@@ -120,7 +122,14 @@ const ParentsDashboard: React.FC = () => {
         </div>
 
         {/* Parent Restriction Mode Toggle */}
-        <button onClick={toggleParentRestrictionMode} className={styles.toggleButton}>
+        <button onClick={toggleParentRestrictionMode} 
+        className={styles.toggleButton}
+        aria-label={`${
+          isParentRestrictionEnabled
+            ? "Disable Parent Restriction Mode"
+            : "Enable Parent Restriction Mode"
+        }`}
+      >
           {isParentRestrictionEnabled ? "Disable Parent Restriction Mode" : "Enable Parent Restriction Mode"}
         </button>
 
@@ -129,7 +138,8 @@ const ParentsDashboard: React.FC = () => {
           onClick={() => router.push("/dashboard")}
           className={`${styles.exitButton} ${isParentRestrictionEnabled ? styles.disabled : ""}`}
           disabled={isParentRestrictionEnabled}
-        >
+          aria-label="Exit Parent Mode"
+                >
           Exit Parent Mode
         </button>
 

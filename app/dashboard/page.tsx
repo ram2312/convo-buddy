@@ -111,9 +111,8 @@ const Dashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div className={loaderStyles.loaderOverlay}>
-        {/* Loader */}
-      </div>
+<div className={loaderStyles.loaderOverlay} role="alert" aria-live="polite">
+Loading your dashboard...      </div>
     );
   }
 
@@ -129,8 +128,10 @@ const Dashboard: React.FC = () => {
           <div className="w-2/5 flex flex-col space-y-4 bg-white p-6 shadow-lg rounded-lg">
             <h1 className={styles.pageTitle}>Progress Overview</h1>
             <div className={`${styles.gridContainer} grid gap-2`}>
-              <div className={styles.statBlock}>
-                <h3 className={styles.statTitle}>Badges Unlocked</h3>
+            <div className={styles.statBlock} aria-labelledby="badgesUnlockedTitle">
+            <h3 id="badgesUnlockedTitle" className={styles.statTitle}>
+    Badges Unlocked
+  </h3>
                 <p className={styles.statValue}>
                   <span className={styles.stars}>
                     {badgesUnlocked === 0 ? (
@@ -202,8 +203,8 @@ const Dashboard: React.FC = () => {
             </h2>
             <div className={styles.chatContainer}>
               {!feedbackMessagesVisible ? (
-                <div className="chat-message initial-message">
-                  Type &quot;feedback&quot; and press Enter to receive guidance based on your progress.
+                <div className="chat-message initial-message" role="region" aria-live="polite">
+                Type &quot;feedback&quot; and press Enter to receive guidance based on your progress.
                 </div>
               ) : (
                 getFeedbackMessages().map((msg, index) => (
@@ -214,20 +215,26 @@ const Dashboard: React.FC = () => {
               )}
             </div>
             <div className={`${styles.chatInputContainer} flex items-center`}>
-              <input
-                type="text"
-                placeholder="Type 'feedback'..."
-                value={feedbackInput}
-                onChange={(e) => setFeedbackInput(e.target.value)}
-                onKeyPress={(e) => e.key === "Enter" && handleFeedbackSubmit()}
-                className="flex-grow p-2 border rounded-md mr-2"
-              />
-              <button
-                onClick={handleFeedbackSubmit}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-              >
-                Send
-              </button>
+            <label htmlFor="feedbackInput" className="sr-only">
+  Feedback Input
+</label>
+<input
+  id="feedbackInput"
+  type="text"
+  placeholder="Type 'feedback'..."
+  value={feedbackInput}
+  onChange={(e) => setFeedbackInput(e.target.value)}
+  onKeyPress={(e) => e.key === "Enter" && handleFeedbackSubmit()}
+  className="flex-grow p-2 border rounded-md mr-2"
+/>
+<button
+  onClick={handleFeedbackSubmit}
+  className="bg-blue-600"
+  aria-label="Send feedback"
+>
+  Send
+</button>
+
             </div>
           </div>
         </div>

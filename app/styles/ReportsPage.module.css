@@ -7,7 +7,7 @@
 
 /* Page titlea */
 .pageTitle {
-    color: #555758;
+    color: #333333;
     font-family: 'Inter', sans-serif;
     font-size: 32px;
     font-weight: 400;
@@ -67,7 +67,7 @@ max-width: 50rem; /* Increased width to better fit 4 columns */
     font-family: 'Inter', sans-serif;
     font-size: 24px;
     font-weight: 600;
-    color: #3C3C3C;
+    color: #222222;
 }
 
 /* No badge styling */

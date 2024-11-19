@@ -88,3 +88,21 @@
 .saveButton:hover {
     background-color: #1660aa;
 }
+/* Add helper text styling */
+.helperText {
+    font-size: 14px;
+    color: #666;
+    margin-top: -5px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  /* Heading Styling */
+.heading {
+    font-size: 24px; /* Adjust size as needed */
+    font-weight: 600;
+    color: #1d75dd; /* Matches the button color for consistency */
+    text-align: center; /* Center the heading */
+    margin-bottom: 1.5rem; /* Space between the heading and form */
+    font-family: "Poppins", sans-serif; /* Use the same font as the rest of the design */
+  }
+  

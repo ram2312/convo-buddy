@@ -2,21 +2,26 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import styles from "../../styles/Register.module.css"; // Assuming the CSS is stored in a module
+import styles from "../../styles/Register.module.css";
 
 export default function Register() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState<string | null>(null); // Error state for UI feedback
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Form validation
     if (password !== confirmPassword) {
-      alert("Passwords do not match.");
+      setError("Passwords do not match.");
+      document.getElementById("confirmPassword")?.focus();
       return;
     }
+
+    setError(null); // Clear previous errors
 
     try {
       const response = await fetch("/api/auth/register", {
@@ -32,24 +37,35 @@ export default function Register() {
         router.push(data.redirectTo); // Redirect to profile page
       } else {
         const data = await response.json();
-        alert(data.error);
+        setError(data.error || "Registration failed. Please try again.");
       }
-    } catch (error) {
-      console.error("Registration error:", error);
-      alert("Something went wrong, please try again.");
+    } catch (err) {
+      console.error("Registration error:", err);
+      setError("Something went wrong. Please try again later.");
     }
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} role="main" aria-label="Registration Page">
       <div className={styles.logoContainer}>
-        <img src="../images/logo.png" alt="Convo Buddy Logo" className={styles.logo} /> {/* Adjust this path */}
-      </div>           
+        <img
+          src="../images/logo.png"
+          alt="Convo Buddy Logo"
+          className={styles.logo}
+        />
+      </div>
       <div className={styles.card}>
         <h1 className={styles.heading}>Welcome to ConvoBuddy</h1>
         <p className={styles.subHeading}>Sign up to start your journey</p>
 
-        <form onSubmit={handleSubmit} className={styles.form}>
+        {/* Error message section */}
+        {error && (
+          <div className={styles.error} role="alert" aria-live="assertive">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className={styles.form} noValidate>
           <label className={styles.label} htmlFor="email">
             Email
           </label>
@@ -61,6 +77,7 @@ export default function Register() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            aria-label="Enter your email"
           />
 
           <label className={styles.label} htmlFor="password">
@@ -74,6 +91,7 @@ export default function Register() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            aria-label="Enter your password"
           />
 
           <label className={styles.label} htmlFor="confirmPassword">
@@ -87,16 +105,17 @@ export default function Register() {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
+            aria-label="Confirm your password"
           />
 
-          <button type="submit" className={styles.signUpButton}>
+          <button type="submit" className={styles.signUpButton} aria-label="Register">
             Register
           </button>
         </form>
 
         <p className={styles.signInText}>
           Already have an account?{" "}
-          <a href="/auth/login" className={styles.signInLink}>
+          <a href="/auth/login" className={styles.signInLink} aria-label="Log in to your account">
             Log in
           </a>
         </p>

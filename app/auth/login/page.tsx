@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import styles from "../../styles/Login.module.css"; // Assuming the CSS is stored in a module
+import styles from "../../styles/Login.module.css";
 
 export default function Login() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,16 +25,16 @@ export default function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        const { email, redirectTo } = data; // Extract destination from response
-        localStorage.setItem("userEmail", email); // Save email in localStorage
+        const { email, redirectTo } = data;
+        localStorage.setItem("userEmail", email);
         alert("Login successful!");
-        router.push(redirectTo); // Redirect to the appropriate page
+        router.push(redirectTo);
       } else {
-        alert(data.error); // Display error message
+        setError(data.error || "Login failed.");
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert("Something went wrong, please try again.");
+      setError("Something went wrong. Please try again.");
     }
   };
 
@@ -42,13 +43,19 @@ export default function Login() {
       <div className={styles.card}>
         <img
           src="../images/logo.png"
-          alt="ConvoBuddy"
+          alt="ConvoBuddy logo"
           className={styles.logo}
         />
         <h1 className={styles.heading}>Welcome Back</h1>
         <p className={styles.subHeading}>
           Welcome back! Please enter your details.
         </p>
+
+        {error && (
+          <div className={styles.error} role="alert" aria-live="assertive">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <label className={styles.label} htmlFor="email">
@@ -57,11 +64,12 @@ export default function Login() {
           <input
             type="email"
             id="email"
-            placeholder="Enter your email"
+            placeholder="Enter your email address"
             className={styles.input}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            aria-label="Enter your email address"
           />
 
           <label className={styles.label} htmlFor="password">
@@ -70,22 +78,13 @@ export default function Login() {
           <input
             type="password"
             id="password"
-            placeholder="Enter your password"
+            placeholder="Enter your secure password"
             className={styles.input}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            aria-label="Enter your password"
           />
-
-          {/* <div className={styles.options}>
-            <label className={styles.checkboxLabel}>
-              <input type="checkbox" className={styles.checkbox} />
-              Remember me
-            </label>
-            <a href="#" className={styles.forgotPassword}>
-              Forgot password?
-            </a>
-          </div> */}
 
           <button type="submit" className={styles.signInButton}>
             Sign in
@@ -94,7 +93,11 @@ export default function Login() {
 
         <p className={styles.signUpText}>
           Don’t have an account?{" "}
-          <a href="/auth/register" className={styles.signUpLink}>
+          <a
+            href="/auth/register"
+            className={styles.signUpLink}
+            aria-label="Sign up for a new account"
+          >
             Sign up
           </a>
         </p>

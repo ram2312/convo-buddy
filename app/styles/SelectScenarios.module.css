@@ -10,7 +10,7 @@
 
 /* Page title */
 .pageTitle {
-  color: #555758;
+  color: #333333;
   font-family: 'Inter', sans-serif;
   font-size: 32px;
   font-weight: 400;
@@ -64,7 +64,7 @@
 
 /* Button styling */
 .favoriteButton {
-  background-color: #007bff;
+  background-color: #0056b3;
   border: 1px solid #ccc;
   color: white;
   padding: 10px 20px; /* Increased padding */
@@ -74,12 +74,12 @@
 }
 
 .favoriteButton:hover {
-  background-color: #007bff;
+  background-color: #003d80;
   color: white;
 }
 
 .favorited {
-  background-color: #d9534f; /* Red color for unfavored state */
+  background-color: #a94442; /* Red color for unfavored state */
   color: white;
   border: 1px solid #c9302c;
   padding: 10px 20px; /* Increased padding */
@@ -90,7 +90,7 @@
 }
 
 .favorited:hover {
-  background-color: #c9302c;
+  background-color: #842029;
 }
 
 /* Responsive Grid Layout */

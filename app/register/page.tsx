@@ -1,9 +1,17 @@
+import Head from 'next/head';
+
 export default function Register() {
     return (
+      <>
+      <Head>
+        <html lang="en" />
+        <title>Register - ConvoBuddy</title>
+      </Head>
+
       <div className="flex items-center justify-center h-screen bg-gray-100">
         <div className="w-full max-w-md p-8 space-y-4 bg-white rounded-lg shadow-md">
           <h1 className="text-2xl font-bold text-center">Welcome to ConvoBuddy</h1>
-          <p className="text-center text-gray-600">Sign up to start your journey</p>
+          <p className="text-center text-gray-800">Sign up to start your journey</p>
           
           <form>
             <div className="space-y-4">

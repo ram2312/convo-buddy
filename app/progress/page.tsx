@@ -63,7 +63,7 @@ export default function ProgressPage() {
   }, []);
 
   return (
-    <div className={`${styles.pageContainer} flex`}>
+    <div className={`${styles.pageContainer} flex`} role="main">
       <LeftNavigation />
 
       {/* Main content */}
@@ -74,24 +74,34 @@ export default function ProgressPage() {
 
           {/* Stats Grid */}
           <div className={`${styles.gridContainer} gap-6`}>
-            <div className={styles.statBlock}>
-              <h3 className={styles.statTitle}>Scenarios Completed</h3>
+            <div className={styles.statBlock} aria-labelledby="scenariosCompletedTitle">
+              <h2 id="scenariosCompletedTitle" className={styles.statTitle}>
+                Scenarios Completed
+              </h2>
               <p className={styles.statValue}>{completionPercentage}%</p>
-              <p>{scenariosCompleted}/{TOTAL_SCENARIOS}</p>
+              <p>
+                {scenariosCompleted}/{TOTAL_SCENARIOS}
+              </p>
             </div>
 
-            <div className={styles.statBlock}>
-              <h3 className={styles.statTitle}>Points Earned</h3>
+            <div className={styles.statBlock} aria-labelledby="pointsEarnedTitle">
+              <h2 id="pointsEarnedTitle" className={styles.statTitle}>
+                Points Earned
+              </h2>
               <p className={styles.statValue}>{pointsEarned}</p>
             </div>
 
-            <div className={styles.statBlock}>
-              <h3 className={styles.statTitle}>Badges Unlocked</h3>
+            <div className={styles.statBlock} aria-labelledby="badgesUnlockedTitle">
+              <h2 id="badgesUnlockedTitle" className={styles.statTitle}>
+                Badges Unlocked
+              </h2>
               <p className={styles.statValue}>{badgesUnlocked}</p>
             </div>
 
-            <div className={styles.statBlock}>
-              <h3 className={styles.statTitle}>Last Badge Earned</h3>
+            <div className={styles.statBlock} aria-labelledby="lastBadgeTitle">
+              <h2 id="lastBadgeTitle" className={styles.statTitle}>
+                Last Badge Earned
+              </h2>
               <p className={styles.statValue}>{lastBadgeEarned}</p>
             </div>
           </div>

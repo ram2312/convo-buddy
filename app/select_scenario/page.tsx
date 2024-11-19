@@ -139,27 +139,47 @@ export default function SelectScenarios() {
         <h1 className="text-4xl font-semibold text-[#555758] mb-8 font-['Inter', sans-serif]">Select Scenarios</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
   {scenarios.map((scenario) => (
-    <div key={scenario.id} className={styles.scenarioBlock} onClick={() => handleScenarioClick(scenario)}>
-      <h2 className={styles.scenarioTitle}>{scenario.name}</h2>
-      <p className={styles.scenarioContent}>{scenario.description}</p>
+    <div key={scenario.id} className={styles.scenarioBlock} 
+    onClick={() => handleScenarioClick(scenario)}
+    role="button"
+    aria-labelledby={`scenario-title-${scenario.id}`}
+    aria-describedby={`scenario-desc-${scenario.id}`}
+  
+    >
+  <h2 id={`scenario-title-${scenario.id}`} className={styles.scenarioTitle}>
+  {scenario.name}</h2>
+  <p id={`scenario-desc-${scenario.id}`} className={styles.scenarioContent}>
+        {scenario.description}</p>
+        
 
       {/* Favorite Button Logic */}
       <div className="flex justify-between items-center mt-4 gap-14">
         {scenario.id !== 5 ? ( // Check if scenario ID is not 5
           <button
-            className={favorites.includes(scenario.id) ? styles.favorited : styles.favoriteButton}
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleFavorite(scenario.id);
-            }}
-          >
-            {favorites.includes(scenario.id) ? "Saved" : "Save"}
-          </button>
+  className={favorites.includes(scenario.id) ? styles.favorited : styles.favoriteButton}
+  onClick={(e) => {
+    e.stopPropagation();
+    toggleFavorite(scenario.id);
+  }}
+  aria-label={
+    favorites.includes(scenario.id)
+      ? `Remove ${scenario.name} from favorites`
+      : `Add ${scenario.name} to favorites`
+  }
+>
+  {favorites.includes(scenario.id) ? "Saved" : "Save"}
+</button>
+
         ) : null}
         
         {/* Like Count Logic */}
         {scenario.id !== 5 ? ( // Check if scenario ID is not 5
-          <span className="text-gray-800" >{favoriteCounts[scenario.id] || 0} liked</span>
+          <span
+  className="text-gray-800"
+  style={{ color: "#505050" }} /* Use inline style for color */
+  aria-live="polite"
+>
+      {favoriteCounts[scenario.id] || 0} liked</span>
         ) : null}
       </div>
     </div>
