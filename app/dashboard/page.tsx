@@ -129,9 +129,9 @@ Loading your dashboard...      </div>
             <h1 className={styles.pageTitle}>Progress Overview</h1>
             <div className={`${styles.gridContainer} grid gap-2`}>
             <div className={styles.statBlock} aria-labelledby="badgesUnlockedTitle">
-            <h3 id="badgesUnlockedTitle" className={styles.statTitle}>
+            <h2 id="badgesUnlockedTitle" className={styles.statTitle}>
     Badges Unlocked
-  </h3>
+  </h2>
                 <p className={styles.statValue}>
                   <span className={styles.stars}>
                     {badgesUnlocked === 0 ? (
@@ -172,11 +172,11 @@ Loading your dashboard...      </div>
               </div>
 
               <div className={styles.statBlock}>
-                <h3 className={styles.statTitle}>Points Earned</h3>
+                <h2 className={styles.statTitle}>Points Earned</h2>
                 <p className={styles.statValue}>{pointsEarned}</p>
               </div>
               <div className={styles.statBlock}>
-                <h3 className={styles.statTitle}>Scenarios Completed</h3>
+                <h2 className={styles.statTitle}>Scenarios Completed</h2>
                 <p className={styles.statValue}>{completionPercentage}%</p>
               </div>
             </div>

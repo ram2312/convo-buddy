@@ -89,7 +89,7 @@ max-width: 50rem; /* Increased width to better fit 4 columns */
 /* Generate report button */
 .generateButton {
     margin-top: 2rem;
-    background-color: #2d89ef;
+    background-color: #0056b3;
     color: #FFF;
     font-size: 1.2rem;
     font-weight: 600;
@@ -101,7 +101,7 @@ max-width: 50rem; /* Increased width to better fit 4 columns */
 }
 
 .generateButton:hover {
-    background-color: #1b5da6;
+    background-color: #003f8c;
 }
 
 /* Printer-friendly styles */

@@ -75,12 +75,12 @@ const ParentsDashboard: React.FC = () => {
         {/* Progress Overview */}
         <div className={styles.progressContainer}>
           <div className={styles.progressCard}>
-            <h3 className={styles.progressTitle}>Scenarios Completed</h3>
+            <h2 className={styles.progressTitle}>Scenarios Completed</h2>
             <p className={styles.progressValue}>{completionPercentage}%</p>
             <p className={styles.progressDetails}>{completionPercentage / 100 * TOTAL_SCENARIOS}/{TOTAL_SCENARIOS}</p>
           </div>
           <div className={styles.progressCard}>
-            <h3 className={styles.progressTitle}>Points Earned</h3>
+            <h2 className={styles.progressTitle}>Points Earned</h2>
             <p className={styles.progressValue}>{pointsEarned}</p>
           </div>
         </div>

@@ -49,24 +49,30 @@
   
   .logoutButton {
     display: flex;
-    justify-content: flex-start;
+    /* justify-content: center; Center align text horizontally */
+    /* align-items: center; Center align text vertically */
     padding: 15px 20px;
     width: 100%;
-    background: none;
-    border: none;
+    background-color: #b0232d; /* Adjusted to a darker red for better contrast */
+    color: #ffffff; /* White text for contrast */
+    border: none; /* Clean look */
+    /* border-radius: 8px; Rounded corners for a modern design */
     font-family: 'Actor', sans-serif;
-    font-size: 20px;
-    color: #ff5f5f;
+    font-size: 16px; /* Increased font size to improve readability */
+    font-weight: bold; /* Bold text for emphasis */
     cursor: pointer;
-    transition: color 0.2s ease;
-    margin-top: 200px; /* This will push the logout button to the bottom */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+    margin-top: auto; /* Dynamically push to the bottom */
+    margin-bottom: 20px; /* Add spacing below */
   }
   
   .logoutButton:hover {
-    color: #ff1f1f;
+    background-color: #8d1b24; /* Darker shade of red for hover state */
+    color: #ffffff; /* Ensure text remains white for contrast */
   }
   
   .logoutButton:active {
-    transform: translateY(1px);
+    transform: translateY(2px); /* Button "click" effect */
+    background-color: #76161d; /* Even darker red for active state */
   }
   

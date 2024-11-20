@@ -31,12 +31,10 @@ export default function RootLayout({
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        {/* <title>{metadata.title}</title> */}
-        {/* <meta name="description" content={metadata.description} /> */}
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}
+        className={`${geistSans.variable ?? ""} ${geistMono.variable ?? ""} antialiased bg-gray-50 text-gray-900`}
       >
         <LoaderWrapper>{children}</LoaderWrapper>
       </body>

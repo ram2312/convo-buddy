@@ -1,11 +1,10 @@
 "use client";
 
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { createClient } from "@supabase/supabase-js";
 import styles from "../styles/SelectScenarios.module.css";
 import LeftNavigation from "../components/LeftNavigation";
-
 
 // Define interface for scenario
 interface Scenario {
@@ -28,21 +27,20 @@ export default function SelectScenarios() {
     const { data: favoriteData } = await supabase
       .from("favorites")
       .select("scenario_id");
-  
+
     if (!favoriteData) {
       console.error("Error fetching favorite counts.");
       return {};
     }
-  
+
     const counts: { [key: number]: number } = {};
     favoriteData.forEach((favorite) => {
       const scenarioId = favorite.scenario_id;
       counts[scenarioId] = (counts[scenarioId] || 0) + 1;
     });
-  
+
     return counts;
   };
-  
 
   useEffect(() => {
     const fetchScenariosAndFavorites = async () => {
@@ -54,139 +52,140 @@ export default function SelectScenarios() {
         return;
       }
 
-        // Fetch scenarios
-        const { data: scenarioData} = await supabase
-          .from("scenarios")
-          .select("id, name, description");
+      // Fetch scenarios
+      const { data: scenarioData } = await supabase
+        .from("scenarios")
+        .select("id, name, description");
 
-          if (!scenarioData) {
-            console.error("Error fetching scenarios.");
-            return;
-          }
-          
+      if (!scenarioData) {
+        console.error("Error fetching scenarios.");
+        return;
+      }
 
-        if (scenarioData) {
-          setScenarios(scenarioData);
-        }
+      setScenarios(scenarioData);
 
-        // Fetch user's favorites
-        const { data: favoriteData} = await supabase
-          .from("favorites")
-          .select("scenario_id")
-          .eq("user_email", userEmail);
+      // Fetch user's favorites
+      const { data: favoriteData } = await supabase
+        .from("favorites")
+        .select("scenario_id")
+        .eq("user_email", userEmail);
 
-          if (!favoriteData) {
-            console.error("Error fetching favorites.");
-            return;
-          }
-          
+      if (!favoriteData) {
+        console.error("Error fetching favorites.");
+        return;
+      }
 
-        if (favoriteData) {
-          setFavorites(favoriteData.map((favorite) => favorite.scenario_id));
-        }
+      setFavorites(favoriteData.map((favorite) => favorite.scenario_id));
 
-        // Fetch favorite counts
-        const counts = await fetchFavoriteCounts();
-        setFavoriteCounts(counts);
-      
+      // Fetch favorite counts
+      const counts = await fetchFavoriteCounts();
+      setFavoriteCounts(counts);
     };
 
     fetchScenariosAndFavorites();
   }, []);
 
   const handleScenarioClick = (scenario: Scenario) => {
-    const url = scenario.id === 5 
-      ? `/Conversation?name=${encodeURIComponent(scenario.name)}` 
-      : `/conversations?scenario=${encodeURIComponent(scenario.id)}&name=${encodeURIComponent(scenario.name)}`;
+    const url =
+      scenario.id === 5
+        ? `/Conversation?name=${encodeURIComponent(scenario.name)}`
+        : `/conversations?scenario=${encodeURIComponent(scenario.id)}&name=${encodeURIComponent(
+            scenario.name
+          )}`;
     router.push(url);
   };
 
   const toggleFavorite = async (scenarioId: number) => {
     const userEmail = localStorage.getItem("userEmail");
-  
+
     if (!userEmail) {
       alert("No user found. Redirecting to login.");
       window.location.href = "/auth/login";
       return;
     }
-        const response = await fetch("/api/favorites/add", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: userEmail, scenarioId })
-      });
-  
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Favorite added successfully:", result);
-        setFavorites([...favorites, scenarioId]);
+    const response = await fetch("/api/favorites/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: userEmail, scenarioId }),
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      console.log("Favorite added successfully:", result);
+      setFavorites([...favorites, scenarioId]);
+    } else {
+      const errorData = await response.json();
+      if (errorData.error === "Favorite already exists") {
+        alert("This scenario is already in your favorites.");
       } else {
-        const errorData = await response.json();
-        if (errorData.error === 'Favorite already exists') {
-          alert("This scenario is already in your favorites.");
-        } else {
-          alert("An unexpected error occurred. Please try again.");
-        }
+        alert("An unexpected error occurred. Please try again.");
       }
-   
+    }
   };
-  
 
   return (
     <div className={styles.pageContainer}>
       <LeftNavigation />
 
       <div className="ml-64 p-8">
-        <h1 className="text-4xl font-semibold text-[#555758] mb-8 font-['Inter', sans-serif]">Select Scenarios</h1>
+        <h1 className="text-4xl font-semibold text-[#555758] mb-8 font-['Inter', sans-serif]">
+          Select Scenarios
+        </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-  {scenarios.map((scenario) => (
-    <div key={scenario.id} className={styles.scenarioBlock} 
-    onClick={() => handleScenarioClick(scenario)}
-    role="button"
-    aria-labelledby={`scenario-title-${scenario.id}`}
-    aria-describedby={`scenario-desc-${scenario.id}`}
-  
-    >
-  <h2 id={`scenario-title-${scenario.id}`} className={styles.scenarioTitle}>
-  {scenario.name}</h2>
-  <p id={`scenario-desc-${scenario.id}`} className={styles.scenarioContent}>
-        {scenario.description}</p>
-        
+          {scenarios.map((scenario) => (
+            <div
+              key={scenario.id}
+              className={styles.scenarioBlock}
+              onClick={() => handleScenarioClick(scenario)}
+              role="link"
+              aria-labelledby={`scenario-title-${scenario.id}`}
+              aria-describedby={`scenario-desc-${scenario.id}`}
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  handleScenarioClick(scenario);
+                }
+              }}
+            >
+              <h2 id={`scenario-title-${scenario.id}`} className={styles.scenarioTitle}>
+                {scenario.name}
+              </h2>
+              <p id={`scenario-desc-${scenario.id}`} className={styles.scenarioContent}>
+                {scenario.description}
+              </p>
 
-      {/* Favorite Button Logic */}
-      <div className="flex justify-between items-center mt-4 gap-14">
-        {scenario.id !== 5 ? ( // Check if scenario ID is not 5
-          <button
-  className={favorites.includes(scenario.id) ? styles.favorited : styles.favoriteButton}
-  onClick={(e) => {
-    e.stopPropagation();
-    toggleFavorite(scenario.id);
-  }}
-  aria-label={
-    favorites.includes(scenario.id)
-      ? `Remove ${scenario.name} from favorites`
-      : `Add ${scenario.name} to favorites`
-  }
->
-  {favorites.includes(scenario.id) ? "Saved" : "Save"}
-</button>
-
-        ) : null}
-        
-        {/* Like Count Logic */}
-        {scenario.id !== 5 ? ( // Check if scenario ID is not 5
-          <span
-  className="text-gray-800"
-  style={{ color: "#505050" }} /* Use inline style for color */
-  aria-live="polite"
->
-      {favoriteCounts[scenario.id] || 0} liked</span>
-        ) : null}
+              {/* Favorite Button Logic */}
+              <div className="flex justify-between items-center mt-4 gap-14">
+                {scenario.id !== 5 && (
+                  <>
+                    <span
+                      className="text-gray-800"
+                      style={{ color: "#505050" }}
+                      aria-live="polite"
+                    >
+                      {favoriteCounts[scenario.id] || 0} liked
+                    </span>
+                    <button
+                      className={favorites.includes(scenario.id) ? styles.favorited : styles.favoriteButton}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFavorite(scenario.id);
+                      }}
+                      aria-label={
+                        favorites.includes(scenario.id)
+                          ? `Remove ${scenario.name} from favorites`
+                          : `Add ${scenario.name} to favorites`
+                      }
+                    >
+                      {favorites.includes(scenario.id) ? "Saved" : "Save"}
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  ))}
-</div>
-
-</div>
     </div>
   );
 }
